@@ -5,3 +5,9 @@ Content-Type: application/json
 "username": "admin",
 "password": "password"
 }
+
+### this GET request retrieves all cards from cards.js
+GET http://localhost:3000/cards HTTP/1.1
+
+###
+GET http://localhost:3000/cards?set=Base%20Set&type=Creature&rarity=Common HTTP/1.1

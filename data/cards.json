@@ -1,0 +1,6 @@
+[
+    { "id": 1, "name": "Card 1", "set": "Base Set", "type": "Creature", "rarity": "Common" },
+    { "id": 2, "name": "Card 2", "set": "Expansion Set", "type": "Spell", "rarity": "Rare" },
+    { "id": 3, "name": "Card 3", "set": "Base Set", "type": "Artifact", "rarity": "Uncommon" },
+    { "id": 4, "name": "Card 4", "set": "Expansion Set", "type": "Creature", "rarity": "Common" }
+]

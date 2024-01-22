@@ -1,9 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const { getToken } = require('../controllers/authController')
+const { verifyToken } = require('../middleware/authMiddleware')
 
-router.post('/getToken', (req, res, next) => {
-    getToken(req, res, next)
-})
 
 module.exports = router
