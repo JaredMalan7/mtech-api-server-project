@@ -6,6 +6,7 @@ const dotenv = require('dotenv')
 const cardsController = require('./controllers/cardsController')
 const authRoutes = require('./routes/auth')
 
+
 dotenv.config()
 
 const app = express()
@@ -22,7 +23,8 @@ app.use((req, res, next) => {
 // Routes
 app.use('/auth', authRoutes)
 app.get('/cards', cardsController.getAllCards)
-
+app.post('/cards/create', cardsController.createCard)
+app.get('/types', cardsController.getAllTypes)
 // Start Server
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

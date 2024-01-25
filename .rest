@@ -9,5 +9,30 @@ Content-Type: application/json
 ### this GET request retrieves all cards from cards.js
 GET http://localhost:3000/cards HTTP/1.1
 
-###
+### Retrieve a list of all card sets available.
 GET http://localhost:3000/cards?set=Base%20Set&type=Creature&rarity=Common HTTP/1.1
+
+###
+POST http://localhost:3000/cards/create HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzA2MTY1NTE4fQ.ItGNqFreTpiUny_Hy6ZojNkGpEKtqedC3xc9yGXMhpw
+
+{
+  "name": "New Card",
+  "set": "Expansion Set",
+  "cardNumber": 5,
+  "type": "Spell",
+  "power": 2000,
+  "toughness": 1500,
+  "rarity": "Rare",
+  "cost": 2
+}
+
+###
+GET http://localhost:3000/cards/5
+
+
+
+### Retrieve a list of all card types available.
+GET http://localhost:3000/types HTTP/1.1
+
