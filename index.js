@@ -24,7 +24,7 @@ app.use('/auth', authRoutes)
 app.get('/cards', verifyToken, cardsController.getAllCards)
 app.post('/cards/create', verifyToken, cardsController.createCard)
 app.put('/cards/:id', verifyToken, cardsController.updateCard)
-
+app.delete('/cards/:id', verifyToken, cardsController.deleteCard)
 
 
 app.listen(PORT, () => {

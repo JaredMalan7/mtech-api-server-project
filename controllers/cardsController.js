@@ -147,6 +147,35 @@ const updateCard = (req, res) => {
 
 // Delete an existing card using the /cards/:id (DELETE) endpoint
 
+const deleteCard = (req, res) => {
+    try {
+        verifyToken(req, res, () => {
+            const decoded = req.user
+
+            // Reads cards data from the file
+            const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
+            let { cards } = JSON.parse(cardsData)
+
+            const { id } = req.params
+            const cardIndex = cards.findIndex(card => card.id === parseInt(id))
+
+            if (cardIndex === -1) {
+                return res.status(404).json({ errorMessage: 'Card not found' })
+            }
+
+            // Removes the card from the array
+            const deletedCard = cards.splice(cardIndex, 1)[0]
+
+            // Writes the updated cards data back to the file
+            fs.writeFileSync(cardsFilePath, JSON.stringify({ cards }, null, 2), 'utf-8')
+
+            res.json({ successMessage: 'Card deleted successfully', deletedCard })
+        })
+    } catch (error) {
+        console.error('Error deleting card:', error.message)
+        res.status(401).json({ errorMessage: 'Invalid token or internal server error' })
+    }
+}
 
 
 // Create, update, and delete endpoints are protected; accessible only with a valid JWT.
@@ -156,7 +185,9 @@ const updateCard = (req, res) => {
 // All endpoints return either an errorMessage or a successMessage along with the created/updated/deleted object.
 
 
-// Get Types: GET /types - Retrieve a list of all card types available.
+
+//TO BE FIXED**********
+// Get Types: GET /types - Retrieve a list of all card types available. 
 const getAllTypes = (req, res) => {
     try {
         const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
@@ -186,4 +217,5 @@ module.exports = {
     createCard,
     getAllTypes,
     updateCard,
+    deleteCard,
 }
