@@ -1,10 +1,9 @@
-// index.js
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const dotenv = require('dotenv')
 const cardsController = require('./controllers/cardsController')
 const authRoutes = require('./routes/auth')
+const { verifyToken } = require('./middleware/authMiddleware')
 
 
 dotenv.config()
@@ -22,10 +21,12 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/auth', authRoutes)
-app.get('/cards', cardsController.getAllCards)
-app.post('/cards/create', cardsController.createCard)
-app.get('/types', cardsController.getAllTypes)
-// Start Server
+app.get('/cards', verifyToken, cardsController.getAllCards)
+app.post('/cards/create', verifyToken, cardsController.createCard)
+app.put('/cards/:id', verifyToken, cardsController.updateCard)
+
+
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })

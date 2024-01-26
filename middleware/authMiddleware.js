@@ -8,10 +8,12 @@ const verifyToken = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET)
         req.user = decoded
+        console.log('Token decoded successfully:', decoded) // Log decoded token for debugging
         next()
     } catch (error) {
+        console.error('Token verification error:', error.message)
         return res.status(401).json({ errorMessage: 'Invalid token' })
     }
 }

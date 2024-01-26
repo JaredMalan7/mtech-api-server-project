@@ -2,8 +2,8 @@ POST http://localhost:3000/auth/getToken HTTP/1.1
 Content-Type: application/json
 
 {
-"username": "admin",
-"password": "password"
+"username": "Jared",
+"password": "mypassword"
 }
 
 ### this GET request retrieves all cards from cards.js
@@ -12,10 +12,10 @@ GET http://localhost:3000/cards HTTP/1.1
 ### Retrieve a list of all card sets available.
 GET http://localhost:3000/cards?set=Base%20Set&type=Creature&rarity=Common HTTP/1.1
 
-###
+### Creates a new card
 POST http://localhost:3000/cards/create HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzA2MTY1NTE4fQ.ItGNqFreTpiUny_Hy6ZojNkGpEKtqedC3xc9yGXMhpw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyNTY5LCJleHAiOjE3MDYyNTYxNjl9.opWE8Rf1-VUsduLpwLeoa2ElyIBi2MGuX-lEcVnl8HU
 
 {
   "name": "New Card",
@@ -28,8 +28,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkb
   "cost": 2
 }
 
-###
-GET http://localhost:3000/cards/5
+### Updates cards by id
+PUT http://localhost:3000/cards/130
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyOTgyLCJleHAiOjE3MDYyNTY1ODJ9.PzNE3vzw7ZRL3A82sZBEQpbt4bODDO-YYF3TzqdSXX8
+
+{
+  "name": "Updated Card",
+  "set": "New Set",
+  "cardNumber": 15,
+  "type": "Updated Type",
+  "power": 5000,
+  "toughness": 4500,
+  "rarity": "Rare",
+  "cost": 5
+}
 
 
 

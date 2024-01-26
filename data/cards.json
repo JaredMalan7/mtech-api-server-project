@@ -1280,6 +1280,50 @@
       "toughness": 1500,
       "rarity": "Rare",
       "cost": 2
+    },
+    {
+      "id": 127,
+      "name": "New Card",
+      "set": "Expansion Set",
+      "cardNumber": 5,
+      "type": "Spell",
+      "power": 2000,
+      "toughness": 1500,
+      "rarity": "Rare",
+      "cost": 2
+    },
+    {
+      "id": 128,
+      "name": "New Card",
+      "set": "Expansion Set",
+      "cardNumber": 5,
+      "type": "Spell",
+      "power": 2000,
+      "toughness": 1500,
+      "rarity": "Rare",
+      "cost": 2
+    },
+    {
+      "id": 129,
+      "name": "New Card",
+      "set": "Expansion Set",
+      "cardNumber": 5,
+      "type": "Spell",
+      "power": 2000,
+      "toughness": 1500,
+      "rarity": "Rare",
+      "cost": 2
+    },
+    {
+      "id": 130,
+      "name": "Updated Card",
+      "set": "New Set",
+      "cardNumber": 15,
+      "type": "Updated Type",
+      "power": 5000,
+      "toughness": 4500,
+      "rarity": "Rare",
+      "cost": 5
     }
   ]
 }

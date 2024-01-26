@@ -12,7 +12,8 @@ const getToken = (req, res) => {
     const isValidUser = users.find(user => user.username === username && user.password === password)
 
     if (isValidUser) {
-        const token = jwt.sign({ username }, process.env.JWT_SECRET)
+
+        const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1h' })
         res.json({ token })
     } else {
         // Returns a 401 status code with an error message if authentication fails.

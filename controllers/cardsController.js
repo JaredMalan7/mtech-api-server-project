@@ -4,7 +4,7 @@ const { verifyToken } = require('../middleware/authMiddleware')
 
 const cardsFilePath = path.join(__dirname, '../data/cards.json')
 
-//Retrieve all cards with optional query parameters for filtering (8 points).
+//Retrieve all cards with optional query parameters for filtering
 const getAllCards = (req, res) => {
     try {
         const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
@@ -25,50 +25,56 @@ const getAllCards = (req, res) => {
     }
 }
 
-
+// Create a new card at the /cards/create endpoint
 const createCard = (req, res) => {
     try {
-        const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
-        const { cards } = JSON.parse(cardsData)
+        const token = req.header('Authorization')
 
-        const {
-            name,
-            set,
-            cardNumber,
-            type,
-            power,
-            toughness,
-            rarity,
-            cost
-        } = req.body
+        verifyToken(req, res, () => {
+            const decoded = req.user
 
-        // Generate id based on the index of the last card in the array
-        const id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 1
+            const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
+            const { cards } = JSON.parse(cardsData)
 
-        const newCard = {
-            id,
-            name,
-            set,
-            cardNumber,
-            type,
-            power,
-            toughness,
-            rarity,
-            cost
-        }
+            const {
+                name,
+                set,
+                cardNumber,
+                type,
+                power,
+                toughness,
+                rarity,
+                cost
+            } = req.body
 
-        // Check if a card with the same id already exists
-        const existingCard = cards.find(card => card.id === id)
-        if (existingCard) {
-            return res.status(400).json({ errorMessage: 'Card with the same id already exists' })
-        }
+            // Generate id based on the index of the last card in the array
+            const id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 1
 
-        cards.push(newCard)
+            const newCard = {
+                id,
+                name,
+                set,
+                cardNumber,
+                type,
+                power,
+                toughness,
+                rarity,
+                cost
+            }
 
-        // Update the cards file with the new data
-        fs.writeFileSync(cardsFilePath, JSON.stringify({ cards }, null, 2), 'utf-8')
+            // Check if a card with the same id already exists
+            const existingCard = cards.find(card => card.id === id)
+            if (existingCard) {
+                return res.status(400).json({ errorMessage: 'Card with the same id already exists' })
+            }
 
-        res.json(newCard)
+            cards.push(newCard)
+
+            // Update the cards file with the new data
+            fs.writeFileSync(cardsFilePath, JSON.stringify({ cards }, null, 2), 'utf-8')
+
+            res.json(newCard)
+        })
     } catch (error) {
         console.error('Error creating card:', error)
         res.status(500).json({ errorMessage: 'Internal Server Error' })
@@ -76,6 +82,81 @@ const createCard = (req, res) => {
 }
 
 
+// Update an existing card using the /cards/:id (PUT) endpoint
+const updateCard = (req, res) => {
+    try {
+        verifyToken(req, res, () => {
+            const decoded = req.user
+
+            // Reads cards data from the file
+            const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
+            const { cards } = JSON.parse(cardsData)
+
+            const { id } = req.params
+            const cardIndex = cards.findIndex(card => card.id === parseInt(id))
+
+            if (cardIndex === -1) {
+                return res.status(404).json({ errorMessage: 'Card not found' })
+            }
+
+            const {
+                name,
+                set,
+                cardNumber,
+                type,
+                power,
+                toughness,
+                rarity,
+                cost
+            } = req.body
+
+            // Creates an updated card object
+            const updatedCard = {
+                id: parseInt(id),
+                name,
+                set,
+                cardNumber,
+                type,
+                power,
+                toughness,
+                rarity,
+                cost
+            }
+
+            // Checks if a card with the same id already exists
+            const existingCard = cards.find(card => card.id === updatedCard.id)
+            if (existingCard && existingCard.id !== parseInt(id)) {
+                return res.status(400).json({ errorMessage: 'Card with the same id already exists' })
+            }
+
+            // Updates the card in the array
+            cards[cardIndex] = updatedCard
+
+            // Writes the updated cards data back to the file
+            fs.writeFileSync(cardsFilePath, JSON.stringify({ cards }, null, 2), 'utf-8')
+
+            res.json(updatedCard)
+        })
+    } catch (error) {
+        console.error('Error updating card:', error.message)
+        res.status(401).json({ errorMessage: 'Invalid token or internal server error' })
+    }
+}
+
+
+
+// Delete an existing card using the /cards/:id (DELETE) endpoint
+
+
+
+// Create, update, and delete endpoints are protected; accessible only with a valid JWT.
+
+
+
+// All endpoints return either an errorMessage or a successMessage along with the created/updated/deleted object.
+
+
+// Get Types: GET /types - Retrieve a list of all card types available.
 const getAllTypes = (req, res) => {
     try {
         const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
@@ -104,4 +185,5 @@ module.exports = {
     getAllCards,
     createCard,
     getAllTypes,
+    updateCard,
 }
