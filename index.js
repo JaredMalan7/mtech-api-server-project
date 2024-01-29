@@ -25,8 +25,10 @@ app.get('/cards', verifyToken, cardsController.getAllCards)
 app.post('/cards/create', verifyToken, cardsController.createCard)
 app.put('/cards/:id', verifyToken, cardsController.updateCard)
 app.delete('/cards/:id', verifyToken, cardsController.deleteCard)
-app.get('/types', verifyToken, cardsController.getAllTypes)
-app.get('/sets', verifyToken, cardsController.getAllSets)
+app.get('/cards/types', verifyToken, cardsController.getAllTypes)
+app.get('/cards/sets', verifyToken, cardsController.getAllSets)
+app.get('/cards/rarities', verifyToken, cardsController.getAllRarities)
+app.get('/cards/count', verifyToken, cardsController.getCardCount)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)

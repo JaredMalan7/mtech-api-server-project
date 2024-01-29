@@ -224,12 +224,57 @@ const getAllTypes = (req, res) => {
     }
 }
 
+// Get Rarities: GET /rarities - Retrieve a list of all card rarities available.
+const getAllRarities = (req, res) => {
+    try {
+        const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
+        const { cards } = JSON.parse(cardsData)
+
+        const raritiesSet = new Set()
+
+        // Extract all unique rarities from the cards data
+        cards.forEach(card => {
+            if (card.rarity) {
+                raritiesSet.add(card.rarity)
+            }
+        })
+
+        const rarities = Array.from(raritiesSet)
+
+        res.json(rarities)
+    } catch (error) {
+        console.error('Error retrieving rarities:', error)
+        res.status(500).json({ errorMessage: 'Internal Server Error' })
+    }
+}
+
+// Get Card Count: GET /cards/count - Retrieve the total number of cards.
+const getCardCount = (req, res) => {
+    try {
+        const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
+        const { cards } = JSON.parse(cardsData)
+
+        const cardCount = cards.length
+
+        res.json({ cardCount })
+    } catch (error) {
+        console.error('Error retrieving card count:', error)
+        res.status(500).json({ errorMessage: 'Internal Server Error' })
+    }
+}
+
+
+// Get Random Card: GET /cards/random - Retrieve information about a randomly selected card.
+
 
 module.exports = {
     getAllCards,
-    createCard,
     getAllTypes,
     getAllSets,
+    getAllRarities,
+    getCardCount,
+    createCard,
     updateCard,
     deleteCard,
+
 }
