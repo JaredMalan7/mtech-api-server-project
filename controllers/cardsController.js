@@ -265,7 +265,20 @@ const getCardCount = (req, res) => {
 
 
 // Get Random Card: GET /cards/random - Retrieve information about a randomly selected card.
+const getRandomCard = (req, res) => {
+    try {
+        const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
+        const { cards } = JSON.parse(cardsData)
 
+        const randomIndex = Math.floor(Math.random() * cards.length)
+        const randomCard = cards[randomIndex]
+
+        res.json(randomCard)
+    } catch (error) {
+        console.error('Error retrieving random card:', error)
+        res.status(500).json({ errorMessage: 'Internal Server Error' })
+    }
+}
 
 module.exports = {
     getAllCards,
@@ -273,6 +286,7 @@ module.exports = {
     getAllSets,
     getAllRarities,
     getCardCount,
+    getRandomCard,
     createCard,
     updateCard,
     deleteCard,

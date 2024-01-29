@@ -29,6 +29,7 @@ app.get('/cards/types', verifyToken, cardsController.getAllTypes)
 app.get('/cards/sets', verifyToken, cardsController.getAllSets)
 app.get('/cards/rarities', verifyToken, cardsController.getAllRarities)
 app.get('/cards/count', verifyToken, cardsController.getCardCount)
+app.get('/cards/random', verifyToken, cardsController.getRandomCard)
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
