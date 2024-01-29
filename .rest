@@ -54,7 +54,14 @@ DELETE http://localhost:3000/cards/130
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyOTgyLCJleHAiOjE3MDYyNTY1ODJ9.PzNE3vzw7ZRL3A82sZBEQpbt4bODDO-YYF3TzqdSXX8
 
+### Retrieve a list of all card sets available.
+GET http://localhost:3000/sets HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2NTA4NzQxLCJleHAiOjE3MDY1MTIzNDF9.fz9tdLfVe5llaHbML0xcpLeT1v9pHBwim_MXlF-d_u0
+
 ### Retrieve a list of all card types available.
 GET http://localhost:3000/types HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2NTA4NzQxLCJleHAiOjE3MDY1MTIzNDF9.fz9tdLfVe5llaHbML0xcpLeT1v9pHBwim_MXlF-d_u0
 
 

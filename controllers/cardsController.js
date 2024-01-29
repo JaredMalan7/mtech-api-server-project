@@ -7,6 +7,7 @@ const cardsFilePath = path.join(__dirname, '../data/cards.json')
 //Retrieve all cards with optional query parameters for filtering
 const getAllCards = (req, res) => {
     try {
+        //Reads from the file
         const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
         const { cards } = JSON.parse(cardsData)
 
@@ -33,6 +34,7 @@ const createCard = (req, res) => {
         verifyToken(req, res, () => {
             const decoded = req.user
 
+            //Reads from the file
             const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
             const { cards } = JSON.parse(cardsData)
 
@@ -47,7 +49,7 @@ const createCard = (req, res) => {
                 cost
             } = req.body
 
-            // Generate id based on the index of the last card in the array
+            // Generates id based on the index of the last card in the array
             const id = cards.length > 0 ? cards[cards.length - 1].id + 1 : 1
 
             const newCard = {
@@ -62,7 +64,7 @@ const createCard = (req, res) => {
                 cost
             }
 
-            // Check if a card with the same id already exists
+            // Checks if a card with the same id already exists
             const existingCard = cards.find(card => card.id === id)
             if (existingCard) {
                 return res.status(400).json({ errorMessage: 'Card with the same id already exists' })
@@ -70,7 +72,7 @@ const createCard = (req, res) => {
 
             cards.push(newCard)
 
-            // Update the cards file with the new data
+            // Updates the cards file by writing the new data back to the file
             fs.writeFileSync(cardsFilePath, JSON.stringify({ cards }, null, 2), 'utf-8')
 
             res.json(newCard)
@@ -80,7 +82,6 @@ const createCard = (req, res) => {
         res.status(500).json({ errorMessage: 'Internal Server Error' })
     }
 }
-
 
 // Update an existing card using the /cards/:id (PUT) endpoint
 const updateCard = (req, res) => {
@@ -143,10 +144,7 @@ const updateCard = (req, res) => {
     }
 }
 
-
-
 // Delete an existing card using the /cards/:id (DELETE) endpoint
-
 const deleteCard = (req, res) => {
     try {
         verifyToken(req, res, () => {
@@ -177,16 +175,31 @@ const deleteCard = (req, res) => {
     }
 }
 
+//Additional Features
+//Get Sets: GET /sets - Retrieve a list of all card sets available.
+const getAllSets = (req, res) => {
+    try {
+        const cardsData = fs.readFileSync(cardsFilePath, 'utf-8')
+        const { cards } = JSON.parse(cardsData)
 
-// Create, update, and delete endpoints are protected; accessible only with a valid JWT.
+        const setsSet = new Set()
 
+        // Extract all unique sets from the cards data
+        cards.forEach(card => {
+            if (card.set) {
+                setsSet.add(card.set)
+            }
+        })
 
+        const sets = Array.from(setsSet)
 
-// All endpoints return either an errorMessage or a successMessage along with the created/updated/deleted object.
+        res.json(sets)
+    } catch (error) {
+        console.error('Error retrieving sets:', error)
+        res.status(500).json({ errorMessage: 'Internal Server Error' })
+    }
+}
 
-
-
-//TO BE FIXED**********
 // Get Types: GET /types - Retrieve a list of all card types available. 
 const getAllTypes = (req, res) => {
     try {
@@ -216,6 +229,7 @@ module.exports = {
     getAllCards,
     createCard,
     getAllTypes,
+    getAllSets,
     updateCard,
     deleteCard,
 }
