@@ -1,3 +1,4 @@
+### GET A TOKEN REQUEST
 POST http://localhost:3000/auth/getToken HTTP/1.1
 Content-Type: application/json
 
@@ -9,17 +10,17 @@ Content-Type: application/json
 ### this GET request retrieves all cards from cards.js
 GET http://localhost:3000/cards HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyOTgyLCJleHAiOjE3MDYyNTY1ODJ9.PzNE3vzw7ZRL3A82sZBEQpbt4bODDO-YYF3TzqdSXX8
+Authorization: Bearer YourToken
 
 ### Retrieve a list of all card sets available.
 GET http://localhost:3000/cards?set=Base%20Set&type=Creature&rarity=Common HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyOTgyLCJleHAiOjE3MDYyNTY1ODJ9.PzNE3vzw7ZRL3A82sZBEQpbt4bODDO-YYF3TzqdSXX8
+Authorization: Bearer YourToken
 
 ### Creates a new card
 POST http://localhost:3000/cards/create HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyNTY5LCJleHAiOjE3MDYyNTYxNjl9.opWE8Rf1-VUsduLpwLeoa2ElyIBi2MGuX-lEcVnl8HU
+Authorization: Bearer YourToken
 
 {
   "name": "New Card",
@@ -35,7 +36,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikphc
 ### Updates cards by id
 PUT http://localhost:3000/cards/130
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyOTgyLCJleHAiOjE3MDYyNTY1ODJ9.PzNE3vzw7ZRL3A82sZBEQpbt4bODDO-YYF3TzqdSXX8
+Authorization: Bearer YourToken
 
 {
   "name": "Updated Card",
@@ -52,29 +53,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikphc
 ###
 DELETE http://localhost:3000/cards/130
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2MjUyOTgyLCJleHAiOjE3MDYyNTY1ODJ9.PzNE3vzw7ZRL3A82sZBEQpbt4bODDO-YYF3TzqdSXX8
+Authorization: Bearer YourToken
 
 ### Retrieve a list of all card sets available.
 GET http://localhost:3000/cards/sets HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2NTA4NzQxLCJleHAiOjE3MDY1MTIzNDF9.fz9tdLfVe5llaHbML0xcpLeT1v9pHBwim_MXlF-d_u0
+Authorization: Bearer YourToken
 
 ### Retrieve a list of all card types available.
 GET http://localhost:3000/cards/types HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2NTA4NzQxLCJleHAiOjE3MDY1MTIzNDF9.fz9tdLfVe5llaHbML0xcpLeT1v9pHBwim_MXlF-d_u0
+Authorization: Bearer YourToken
 
 ### Retrieve a list of all card Rarities available.
 GET http://localhost:3000/cards/rarities HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2NTA4NzQxLCJleHAiOjE3MDY1MTIzNDF9.fz9tdLfVe5llaHbML0xcpLeT1v9pHBwim_MXlF-d_u0
+Authorization: Bearer YourToken
 
 ### Retrieve a count of all cards available.
 GET http://localhost:3000/cards/count HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2NTA4NzQxLCJleHAiOjE3MDY1MTIzNDF9.fz9tdLfVe5llaHbML0xcpLeT1v9pHBwim_MXlF-d_u0
+Authorization: Bearer YourToken
 
 ### Retrieve a count of all cards available.
 GET http://localhost:3000/cards/random HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkphcmVkIiwiaWF0IjoxNzA2NTA4NzQxLCJleHAiOjE3MDY1MTIzNDF9.fz9tdLfVe5llaHbML0xcpLeT1v9pHBwim_MXlF-d_u0
+Authorization: Bearer YourToken
